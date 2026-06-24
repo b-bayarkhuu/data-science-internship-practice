@@ -1,0 +1,9 @@
+# Python / Jupyter / OS junk
+__pycache__/
+*.pyc
+venv/
+.venv/
+.ipynb_checkpoints/
+.DS_Store
+
+# Note: the CSV datasets ARE committed on purpose — they are the practice data.
