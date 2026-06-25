@@ -4,8 +4,12 @@ Yesterday you loaded the data and built a daily/hourly series. **Today you clean
 
 ## What to do
 1. Load `data/C_call_volume.csv` into pandas (as yesterday).
-2. **Timezones:** `start_time` has some messy / mixed time-zone text. Parse with
-   `pd.to_datetime(df["start_time"], errors="coerce")`. Some rows become `NaT` (bad dates) — count them and decide: drop them, or fix them.
+2. **Timezones:** `start_time` has mixed time-zone text — most rows have none, but some end in `+08:00` / `Z` / ` UTC`. Parse it so **every** good row is kept:
+   ```python
+   df["start_time"] = pd.to_datetime(df["start_time"], errors="coerce", utc=True, format="mixed")
+   print("NaT (bad dates):", df["start_time"].isna().sum())
+   ```
+   ⚠️ **Always print the `NaT` count and check it is small.** Without `format="mixed"`, pandas guesses one format from the first row and silently turns every row that doesn't match into `NaT` — that can quietly drop most of your data. Once the count is small, decide what to do with those few real bad rows (drop or fix).
 3. **Duplicate rows:** `df.duplicated().sum()`, then `df = df.drop_duplicates()`.
 4. **Outliers:** check `duration_sec` (some are negative — impossible); decide what to do.
 5. **Normal empties (do NOT "fix"):** `connect_time` / `end_time` are empty when `call_result` is not `answered` (no-answer / busy / failed). That is correct, not a data error.

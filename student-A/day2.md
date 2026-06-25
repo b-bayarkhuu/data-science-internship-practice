@@ -6,7 +6,12 @@ Yesterday you loaded and explored the data. **Today you clean it** so it is read
 1. Load `data/A_message_delivery.csv` into pandas (as yesterday).
 2. **NULLs:** find them with `df.isna().sum()`. Decide per column — drop, fill, or keep — and write *why*. (e.g. `network_provider` and `recipient_id` have some NULLs.)
 3. **Duplicate rows:** `df.duplicated().sum()`, then `df = df.drop_duplicates()`.
-4. **Timezones:** `sent_at` has some messy / mixed time-zone text. Parse with `pd.to_datetime(df["sent_at"], errors="coerce")` and decide how to handle the bad ones.
+4. **Timezones:** `sent_at` has mixed time-zone text (some rows end in `+08:00` / `Z` / ` UTC`). Parse it so you don't lose rows:
+   ```python
+   df["sent_at"] = pd.to_datetime(df["sent_at"], errors="coerce", utc=True, format="mixed")
+   print("NaT (bad dates):", df["sent_at"].isna().sum())
+   ```
+   ⚠️ **Print the `NaT` count and check it is small.** Without `format="mixed"`, pandas infers one format from the first row and silently coerces the rest to `NaT` — which can drop a lot of data. Then handle the few real bad ones.
 5. **Outliers:** check `message_parts` and `cost` for impossible / extreme values; decide what to do.
 6. **Document every decision** in markdown cells (what you changed and why).
 
