@@ -7,3 +7,6 @@ venv/
 .DS_Store
 
 # Note: the CSV datasets ARE committed on purpose — they are the practice data.
+
+# Internal mentor guidance — never publish to the student-facing repo
+CLAUDE.md
