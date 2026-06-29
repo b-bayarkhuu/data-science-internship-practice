@@ -20,7 +20,7 @@ Yesterday you cleaned the data and rebuilt a clean daily/hourly count. **Today y
 > These three patterns — **trend + weekly seasonality + daily seasonality** — are exactly what your forecast will have to capture later. Today is about *seeing* them clearly.
 
 ## Read today (~1 hour)
-- **FPP3 (Python) Ch.1–2** — forecasting concepts + time-series decomposition (trend / seasonality): https://otexts.com/fpppy/
+- **FPP3 (Python) Ch.1–2** — forecasting concepts + time-series graphics (seeing trend / seasonality): https://otexts.com/fpppy/
 - Reading log (3 lines): what I read / one thing I learned / one thing still unclear.
 
 ## Deliver
